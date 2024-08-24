@@ -23,7 +23,7 @@ const Comment = ({comment, name, loggedIn, index, getComments}) => {
     }
 
     return(
-        <div className="card carousel-item mr-2 bg-base-100 w-96 shadow-xl">
+        <div className="card carousel-item mr-2 bg-base-100 w-96 max-w-full shadow-xl">
             <div className="card-body">
                 <p>"{comment}"</p>
                 <div className="card-actions justify-start">

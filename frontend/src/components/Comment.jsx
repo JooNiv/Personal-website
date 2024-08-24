@@ -8,7 +8,7 @@ const Comment = ({comment, name, loggedIn, index, getComments}) => {
         }
 
         try {
-            const response = await fetch(`http://localhost:8000/api/delete-comment/${index}`, {
+            const response = await fetch(`/api/delete-comment/${index}`, {
             method: 'DELETE',
             headers: {
                 'Authorization': `Bearer ${token}`,

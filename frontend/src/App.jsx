@@ -38,7 +38,7 @@ function App() {
     e.preventDefault();
     handleCloseClick()
     try {
-      const response = await fetch('http://localhost:8000/api/token', {
+      const response = await fetch('/api/token', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
@@ -59,12 +59,13 @@ function App() {
       alert('Login successful!');
       // Redirect to the admin dashboard or update the state
     } catch (err) {
+      console.log(err)
       alert('Login unsuccessful!');
     }
   };
 
   const getComments = async () => {
-    const response = await fetch('http://127.0.0.1:8000/api/get-comments')
+    const response = await fetch('/api/get-comments')
     const data = await response.json()
     setComments(data)
   }

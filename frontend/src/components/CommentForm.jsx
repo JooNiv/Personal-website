@@ -30,7 +30,7 @@ const CommentForm = ({getComments}) => {
           if (!captchaValue) {
             alert('Please verify the reCAPTCHA!')
           } else {
-            const res = await fetch('http://127.0.0.1:8000/api/verify', {
+            const res = await fetch('/api/verify', {
               method: 'POST',
               body: JSON.stringify({ captchaValue }),
               headers: {
@@ -45,7 +45,7 @@ const CommentForm = ({getComments}) => {
                   alert('Enter a comment and your name first.')
                 }
                 else {
-                const response = await fetch('http://127.0.0.1:8000/api/post-comment', {
+                const response = await fetch('/api/post-comment', {
                   method: 'POST',
                   headers: {
                     'Content-Type': 'application/json',

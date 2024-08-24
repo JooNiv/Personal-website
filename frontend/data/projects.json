@@ -1,0 +1,21 @@
+[
+    {
+      "title": "Circuit Knitting on FiQCI",
+      "description": "A blog post about quantum circuit knitting on FiQCI.",
+      "link": "https://fiqci.fi/_posts/2024-08-23-Circuit_Knitting_FiQCI",
+      "image_path": "/src/images/QCut-logo.jpg"
+    },
+    {
+      "title": "QCut",
+      "description": "A Quantum circuit knitting python package for wire-cuts without mid-circuit measurements.",
+      "link": "https://github.com/JooNiv/QCut",
+      "image_path": "/src/images/QCut-logo.jpg"
+    },
+    {
+      "title": "This website",
+      "description": "This simple portfolio website made with FastAPI, ReactJS, and DaisyUI.",
+      "link": "https://github.com/JooNiv/Portfolio-website",
+      "image_path": "/src/images/website-project-image.png"
+    }
+  ]
+  

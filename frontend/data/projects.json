@@ -14,7 +14,7 @@
     {
       "title": "This website",
       "description": "This simple portfolio website made with FastAPI, ReactJS, and DaisyUI.",
-      "link": "https://github.com/JooNiv/Portfolio-website",
+      "link": "https://github.com/JooNiv/Personal-website",
       "image_path": "/src/images/website-project-image.png"
     }
   ]

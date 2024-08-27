@@ -28,7 +28,6 @@ const Comment = ({comment, username, id, loggedIn, getComments}) => {
                 <p>"{comment}"</p>
                 <div className="card-actions justify-start">
                     <h2 className="card-title">-{username}</h2>
-                    <p>{id}</p>
                 </div>
                 {loggedIn ? (<div className="card-actions justify-end">
                     <button onClick={handleClick} className="btn btn-primary">Delete</button>

@@ -1,4 +1,4 @@
-const Comment = ({comment, name, loggedIn, index, getComments}) => {
+const Comment = ({comment, username, id, loggedIn, getComments}) => {
 
     const handleClick = async () => {
         const token = localStorage.getItem('token');
@@ -8,7 +8,7 @@ const Comment = ({comment, name, loggedIn, index, getComments}) => {
         }
 
         try {
-            const response = await fetch(`/api/delete-comment/${index}`, {
+            const response = await fetch(`/api/delete-comment/${id}`, {
             method: 'DELETE',
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -27,7 +27,8 @@ const Comment = ({comment, name, loggedIn, index, getComments}) => {
             <div className="card-body">
                 <p>"{comment}"</p>
                 <div className="card-actions justify-start">
-                    <h2 className="card-title">-{name}</h2>
+                    <h2 className="card-title">-{username}</h2>
+                    <p>{id}</p>
                 </div>
                 {loggedIn ? (<div className="card-actions justify-end">
                     <button onClick={handleClick} className="btn btn-primary">Delete</button>

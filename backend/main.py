@@ -18,7 +18,7 @@ from sqlalchemy.orm import sessionmaker
 
 load_dotenv()
 
-POSTGRES_URL = os.getenv("POSTGRES_URL")
+POSTGRES_URL = os.getenv("POSTGRES_URL_SQL_ALCHEMY")
 
 engine = create_engine(
     POSTGRES_URL

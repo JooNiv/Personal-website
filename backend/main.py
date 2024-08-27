@@ -115,7 +115,7 @@ async def block_direct_index():
     raise HTTPException(status_code=404, detail="Not found")
 
 # Serve the React static files, with the assumption that "static" contains the built React app
-app.mount("/static", StaticFiles(directory=os.path.join(os.path.dirname(__file__), "static")), name="static")
+app.mount("/", StaticFiles(directory=os.path.join(os.path.dirname(__file__), "static"), html=True), name="static")
 
 # Serve the React app's entry point
 @app.get("/")

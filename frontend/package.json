@@ -2,6 +2,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "postbuild": "copyfiles -u 1 dist/**/* ../backend/static",
     "lint": "eslint .",
     "preview": "vite preview"
   },

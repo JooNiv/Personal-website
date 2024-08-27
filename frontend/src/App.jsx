@@ -5,7 +5,7 @@ import CommentForm from './components/CommentForm';
 import Footer from './components/Footer';
 import Comments from './components/Comments';
 import Projects from './components/Projects';
-import Analytics from "@vercel/analytics/react"
+import { Analytics } from "@vercel/analytics/react"
 
 function App() {
   const drawerRef = useRef();

@@ -6,11 +6,24 @@ import Footer from './components/Footer';
 import Comments from './components/Comments';
 import Projects from './components/Projects';
 import { Analytics } from "@vercel/analytics/react"
+import {Warning, Error, Info, Success} from './components/Notifications';
 
 function App() {
   const drawerRef = useRef();
   const closeLoginRef = useRef();
 
+  const environment = process.env.NODE_ENV;
+  var baseurl = "" 
+  if (environment == "development"){
+    baseurl = "http://localhost:8000"
+  }
+
+  const [notification, setNotification] = useState(
+    {
+      type: '', //info, success, warning, error
+      message: '',
+    }
+  )
   const [comments, setComments] = useState([])
   const [loginData, setLoginData] = useState({
     username: '',
@@ -37,36 +50,52 @@ function App() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    handleCloseClick()
-    try {
-      const response = await fetch('/api/token', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: new URLSearchParams({
-          'username': loginData.username,
-          'password': loginData.password,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Invalid login credentials');
-      }
-
-      const data = await response.json();
-      localStorage.setItem('token', data.access_token);
-      setLoggedIn(true)
-      alert('Login successful!');
-      // Redirect to the admin dashboard or update the state
-    } catch (err) {
-      console.log(err)
-      alert('Login unsuccessful!');
+    if (loginData.username != '' && loginData.password != ''){
+      try {
+        const response = await fetch(`${baseurl}/api/token`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: new URLSearchParams({
+              'username': loginData.username,
+              'password': loginData.password,
+            }),
+          });
+    
+          if (!response.ok) {
+            throw new Error('Invalid login credentials');
+          }
+    
+          const data = await response.json();
+          localStorage.setItem('token', data.access_token);
+          setLoggedIn(true)
+          setTimeout(() => {
+            setNotification({type: '', message: ''})
+          }, 5000);
+          setNotification({type: 'success', message: "Login successful!"});
+          handleCloseClick()
+          //alert('Login successful!');
+          // Redirect to the admin dashboard or update the state
+        } catch (err) {
+          //console.log(err)
+          setTimeout(() => {
+            setNotification({type: '', message: ''})
+          }, 5000);
+          setNotification({type: 'error', message: "Login unsuccessful!"});
+          //alert('Login unsuccessful!');
+        }
+    }
+    else{
+      setTimeout(() => {
+        setNotification({type: '', message: ''})
+      }, 5000);
+      setNotification({type: 'warning', message: "Enter password and username."});
     }
   };
 
   const getComments = async () => {
-    const response = await fetch('/api/get-comments')
+    const response = await fetch(`${baseurl}/api/get-comments`)
     const data = await response.json()
     setComments(data)
   }
@@ -184,10 +213,14 @@ function App() {
               </div>
             </div>
           </dialog>
+          {notification.type == "warning" && <Warning message={notification.message} />}
+          {notification.type == "error" && <Error message={notification.message} />}
+          {notification.type == "success" && <Success message={notification.message} />}
+          {notification.type == "info" && <Info message={notification.message} />}
           <Hero />
           <Projects />
-          <CommentForm getComments={getComments} />
-          <Comments comments={comments} loggedIn={loggedIn} getComments={getComments}/>
+          <CommentForm getComments={getComments} setNotification={setNotification} />
+          <Comments comments={comments} loggedIn={loggedIn} getComments={getComments} setNotification={setNotification}/>
           <Footer />
           <Analytics />
         </div>

@@ -1,4 +1,9 @@
-const Comment = ({comment, username, id, loggedIn, getComments}) => {
+const Comment = ({comment, username, id, loggedIn, getComments, setNotification}) => {
+    const environment = process.env.NODE_ENV;
+    var baseurl = "" 
+    if (environment == "development"){
+        baseurl = "http://localhost:8000"
+    }
 
     const handleClick = async () => {
         const token = localStorage.getItem('token');
@@ -8,17 +13,26 @@ const Comment = ({comment, username, id, loggedIn, getComments}) => {
         }
 
         try {
-            const response = await fetch(`/api/delete-comment/${id}`, {
+            const response = await fetch(`${baseurl}/api/delete-comment/${id}`, {
             method: 'DELETE',
             headers: {
                 'Authorization': `Bearer ${token}`,
             },
             });
             const data = await response.json()
+            setTimeout(() => {
+                setNotification({type: '', message: ''})
+            }, 5000);
+            setNotification({type: 'success', message: "Comment deleted successfully."});
+
             getComments()
 
             } catch (error) {
-            console.error('Error:', error);
+            setTimeout(() => {
+                setNotification({type: '', message: ''})
+            }, 5000);
+            setNotification({type: 'error', message: "Deleting comment failed."});
+            //console.error('Error:', error);
         }
     }
 

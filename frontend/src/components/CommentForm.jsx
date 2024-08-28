@@ -1,7 +1,12 @@
 import ReCAPTCHA from 'react-google-recaptcha'
 import { useState, useRef } from 'react';
 
-const CommentForm = ({getComments}) => {
+const CommentForm = ({getComments, setNotification}) => {
+    const environment = process.env.NODE_ENV
+    var baseurl = "" 
+    if (environment == "development"){
+      baseurl = "http://localhost:8000"
+    }
 
     const recaptcha = useRef();
     const commentFormRef = useRef()
@@ -29,11 +34,16 @@ const CommentForm = ({getComments}) => {
         const captchaValue = recaptcha.current.getValue();
     
         if (!captchaValue) {
-          alert('Please verify the reCAPTCHA!');
+          setTimeout(() => {
+            setNotification({type: '', message: ''})
+          }, 5000);
+          setNotification({type: 'warning', message: "Please verify the reCAPTCHA!"})
+          //alert('Please verify the reCAPTCHA!');
+
         } else {
           try {
             // Verify the captcha and submit the form in a single step
-            const response = await fetch('/api/post-comment', {
+            const response = await fetch(`${baseurl}/api/post-comment`, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
@@ -44,7 +54,11 @@ const CommentForm = ({getComments}) => {
             const result = await response.json();
     
             if (result.error) {
-              alert('reCAPTCHA validation failed!');
+              setTimeout(() => {
+                setNotification({type: '', message: ''})
+              }, 5000);
+              setNotification({type: 'error', message: "reCAPTCHA validation failed!"})
+              //alert('reCAPTCHA validation failed!');
               recaptcha.current.reset();
             } else {
               // Handle successful form submission
@@ -56,13 +70,28 @@ const CommentForm = ({getComments}) => {
                   name: '',
                 });
                 recaptcha.current.reset();
+                setTimeout(() => {
+                  setNotification({type: '', message: ''})
+                }, 5000);
+                setNotification({type: 'success', message: "Comment posted successfully."})
+                
               } else {
-                alert('Error submitting form, please try again.');
+                setTimeout(() => {
+                  setNotification({type: '', message: ''})
+                }, 5000);
+                setNotification({type: 'error', message: "Error submitting form, please try again."});
+
+                //alert('Error submitting form, please try again.');
               }
             }
           } catch (error) {
             console.error('Error submitting form:', error);
-            alert('An unexpected error occurred. Please try again later.');
+            setTimeout(() => {
+              setNotification({type: '', message: ''})
+            }, 5000);
+            setNotification({type: 'error', message: "An unexpected error occurred. Please try again later."})
+            
+            //alert('An unexpected error occurred. Please try again later.');
           }
         }
       }

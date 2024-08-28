@@ -11,9 +11,8 @@ const Hero = () => {
           <div className="max-w-2xl">
             <h1 className="text-5xl font-bold">Hello there!</h1>
             <h1 className="text-5xl font-bold">I'm Joonas!</h1> <br></br>
-            <h2 className="text-2xl">Working on HPC+QC systems as a:</h2>
-            <h2 className="text-2xl">Junior Quantum Technology Applications Specialist</h2>
-            <h2 className='text-2xl'>@ CSC Finland</h2>
+            <h2 className="text-2xl">Working @ CSC Finland</h2>
+            <h2 className="text-2xl">Studying @ Aalto University</h2>
 
             <h2 className="pt-6 pb-2 text-2xl font-bold">You can find me on:</h2>
 
@@ -61,7 +60,7 @@ const Hero = () => {
 
             <h2 className="pt-6 pb-2 text-2xl font-bold">Wanna see what I have done?</h2>
             <p>Then you are in the right place. Here you can find some of my work and personal projects.</p>
-            <p className="pb-6">Scroll down to see some of my projects.</p>
+            <p className="pb-6">Scroll down to see more.</p>
             <button onClick={scroll} className="btn btn-primary">Projects</button>
           </div>
         </div>

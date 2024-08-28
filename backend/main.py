@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Depends, HTTPException, status
+from fastapi import FastAPI, Depends, HTTPException, status, Request
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
@@ -97,6 +97,7 @@ class CaptchaRequest(BaseModel):
 class CommentCreate(BaseModel):
     comment: str
     name: str
+    captchaValue: str
 
 comments = []
 
@@ -130,7 +131,17 @@ async def delete_comment(index: int, current_user: dict = Depends(get_current_us
     db.commit()
 
 @app.post("/api/post-comment")
-async def post_comment(comment: CommentCreate, db: Session = Depends(get_db)):
+async def post_comment(comment: CommentCreate, request: Request, db: Session = Depends(get_db)):
+
+    async with httpx.AsyncClient() as client:
+        captcha_response = await client.post(
+            f"{request.base_url}api/verify",
+            json={"captchaValue": comment.captchaValue},
+        )
+    
+    if not captcha_response.json().get("success"):
+        return {"error": "Capctha failed"}
+    
     all_comments = db.query(Comment).order_by(Comment.id).all()
 
     if len(all_comments) > 10:

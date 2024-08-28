@@ -27,3 +27,4 @@ dist-ssr
 /frontend/.env
 __pycache__
 .vercel
+/tests

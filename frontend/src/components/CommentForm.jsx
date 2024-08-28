@@ -20,56 +20,54 @@ const CommentForm = ({getComments}) => {
     };
 
     const handleSubmit = async (event) => {
-        event.preventDefault()
-        if (!isVisible) {
-          setIsVisible(true)
-        }
-        else {
-          setIsVisible(false)
-          const captchaValue = recaptcha.current.getValue()
-          if (!captchaValue) {
-            alert('Please verify the reCAPTCHA!')
-          } else {
-            const res = await fetch('/api/verify', {
+      event.preventDefault();
+    
+      if (!isVisible) {
+        setIsVisible(true);
+      } else {
+        setIsVisible(false);
+        const captchaValue = recaptcha.current.getValue();
+    
+        if (!captchaValue) {
+          alert('Please verify the reCAPTCHA!');
+        } else {
+          try {
+            // Verify the captcha and submit the form in a single step
+            const response = await fetch('/api/post-comment', {
               method: 'POST',
-              body: JSON.stringify({ captchaValue }),
               headers: {
-                'content-type': 'application/json',
+                'Content-Type': 'application/json',
               },
-            })
-            const data = await res.json()
-            if (data.success) {
-              // make form submission
-              try {
-                if (formData.name == '' || formData.comment == '') {
-                  alert('Enter a comment and your name first.')
-                }
-                else {
-                const response = await fetch('/api/post-comment', {
-                  method: 'POST',
-                  headers: {
-                    'Content-Type': 'application/json',
-                  },
-                  body: JSON.stringify(formData),
-                });
-                const result = await response.json();
-                getComments()
-                commentFormRef.current.click()
+              body: JSON.stringify({ ...formData, captchaValue }),
+            });
+    
+            const result = await response.json();
+    
+            if (result.error) {
+              alert('reCAPTCHA validation failed!');
+              recaptcha.current.reset();
+            } else {
+              // Handle successful form submission
+              if (result.id) {  // Assuming the response contains the comment ID or some other indicator of success
+                getComments();
+                commentFormRef.current.click();
                 setFormData({
                   comment: '',
                   name: '',
-                })
-                recaptcha.current.reset()
+                });
+                recaptcha.current.reset();
+              } else {
+                alert('Error submitting form, please try again.');
               }
-              } catch (error) {
-                console.error('Error submitting form:', error);
-              }
-            } else {
-              alert('reCAPTCHA validation failed!')
             }
+          } catch (error) {
+            console.error('Error submitting form:', error);
+            alert('An unexpected error occurred. Please try again later.');
           }
         }
       }
+    };
+    
 
     return (
         <div id="comment" className='container mx-auto max-w-2xl flex justify-left flex-wrap'>

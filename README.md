@@ -22,15 +22,15 @@ For the database you can use a postgresql of your choice. Just define the POSTGR
 
 Before proceeding also set the ADMIN_USERNAME and ADMIN_PASSWORD_HASH enviroment varibales for the backend.
 
-Then navigate to the backend directory and run
+Then navigate to the root directory and run
 
 ```
-uvicorn main:app --reload
+uvicorn backend.main:app --reload
 ```
 
 This starts the FastApi server which handles the backend and serves the built frontend from the backend/static directory. The server is available at http://localhost:8000
 
-If for development purposes you wish to run the frontend on a separate server navogate to the frontend directory and run 
+If for development purposes you wish to run the frontend on a separate server navigate to the frontend directory and run 
 ```
 npm run dev
 ```
@@ -42,6 +42,6 @@ You can now edit the frontend and the changes will be reflected on the browser. 
 npm run build
 ```
 
-This will build the forntend and replace the backend/ctatic directory with the new build.
+This will build the forntend and replace the backend/static directory with the new build.
 
 If you wish to deploy to Vercel simply make a new project and connect it to your fork/clone of this repository.

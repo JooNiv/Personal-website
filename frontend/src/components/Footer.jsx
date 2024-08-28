@@ -1,6 +1,6 @@
 const Footer = () => {
     return (
-        <footer className="footer bg-neutral text-neutral-content items-center p-4 sm:gap-y-0">
+        <footer className="footer bg-neutral text-neutral-content items-center p-4 gap-y-0">
             <aside className="grid-flow-col items-center">
             <svg
                 width="36"
@@ -15,7 +15,7 @@ const Footer = () => {
             </svg>
             <p>Made by Joonas Nivala</p>
             </aside>
-            <nav className="grid-flow-col gap-4 md:place-self-center md:justify-self-end">
+            <nav className="grid-flow-col gap-y-4 md:place-self-center md:justify-self-end">
             <ul className="menu menu-horizontal">
                 <li><a href="#about">About</a></li>
                 <li><a href="#projects">Projects</a></li>

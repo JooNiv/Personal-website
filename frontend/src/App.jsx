@@ -145,7 +145,7 @@ function App() {
             <div className="hidden lg:block">
               <ul className="menu menu-horizontal">
                 {/* Navbar menu content here */}
-                <li><a onClick={()=>document.getElementById('my_modal_5').showModal()} href="#about">Admin</a></li>
+                <li><a onClick={()=>document.getElementById('my_modal_5').showModal()}>Admin</a></li>
               </ul>
             </div>
         </div>

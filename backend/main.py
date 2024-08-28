@@ -160,7 +160,7 @@ async def get_comments(db: Session = Depends(get_db)):
     for comment in comments:
         print(f"ID: {comment.id}, Comment: {comment.comment}, Username: {comment.username}")
 
-    return comments
+    return comments[::-1]
 @app.get("/index.html")
 async def block_direct_index():
     # Return a 404 Not Found response when trying to access /index.html

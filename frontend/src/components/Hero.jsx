@@ -9,7 +9,14 @@ const Hero = () => {
         <div id="about" className="hero bg-base-200 min-h-screen">
         <div className="hero-content text-left">
           <div className="max-w-2xl">
-            <h1 className="text-5xl font-bold">Hello there!</h1>
+            <h1 className="text-5xl font-bold flex">
+              Hello there!
+              <img
+                src="images/Lightsaber_blue.png"
+                alt="icon"
+                className="w-[50px] h-[50px] ml-1 rotate-[-10deg]" 
+              />  
+            </h1>
             <h1 className="text-5xl font-bold">I'm Joonas!</h1> <br></br>
             <h2 className="text-2xl">Working @ CSC Finland</h2>
             <h2 className="text-2xl">Studying @ Aalto University</h2>

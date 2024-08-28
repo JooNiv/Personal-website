@@ -4,11 +4,13 @@ A simple portfolio website made with FastAPI, ReactJS, DaisyUI, and hosted on Ve
 
 Available [here](https://www.jooniv.fi).
 
-For running locally you need Python3 and NodeJs. First clone the repository, navigate to it and run
+For running locally you need Python3 and NodeJs. First clone the repository, navigate to the root and run
 
 ```
 pip install -r requirements.txt
 ```
+
+then navigate to the frontend directory and run
 
 ```
 npm install

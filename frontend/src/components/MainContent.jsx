@@ -5,6 +5,7 @@ import Comments from './Comments'
 import Footer from './Footer'
 import { useState, useEffect } from 'react'
 import { Analytics } from '@vercel/analytics/react'
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Warning, Error, Info, Success } from './Notifications'
 import { PropTypes } from 'prop-types'
 
@@ -39,6 +40,7 @@ const MainContent = ({ loggedIn, setNotification, notification }) => {
       <Comments comments={comments} loggedIn={loggedIn} getComments={getComments} setNotification={setNotification} />
       <Footer />
       <Analytics />
+      <SpeedInsights />
     </div>
   )
 }

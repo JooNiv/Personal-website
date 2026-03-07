@@ -1,6 +1,6 @@
-# Portfolio website
+# Portfolio website OLD
 
-A simple portfolio website made with FastAPI, ReactJS, DaisyUI, and sqlalchemy. Configured for hosting the app and database on Vercel. You can check out a demo [here](https://www.jooniv.fi).
+A simple portfolio website made with FastAPI, ReactJS, DaisyUI, and sqlalchemy. Configured for hosting the app and database on Vercel.
 
 ![alt text](readme_images/image.png)
 
